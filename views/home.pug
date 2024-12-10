@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Home
+    link(rel="stylesheet", href="/styles.css")
+  body
+    .container
+      h1 Metrics for Device #{device_id}
+      if error
+        p.error= error
+      else
+        table
+          thead
+            tr
+              th Timestamp
+              th Temperature (°C)
+              th Humidity (%)
+          tbody
+            each metric in metrics
+              tr
+                td= metric.timestamp
+                td= metric.temperature
+                td= metric.humidity

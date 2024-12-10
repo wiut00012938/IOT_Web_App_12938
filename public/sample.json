@@ -1,0 +1,40 @@
+{
+  "devices": {
+    "device1": {
+      "device_id": "device1",
+      "login": "user1",
+      "password": "pass1",
+      "transmit_frequency": 10
+    },
+    "device2": {
+      "device_id": "device2",
+      "login": "user2",
+      "password": "pass2",
+      "transmit_frequency": 15
+    }
+  },
+  "metrics": {
+    "device1": {
+      "2024-12-08T10:00:00": {
+        "temperature": 25.3,
+        "humidity": 45.2,
+        "movement": 1,         
+        "lightness": 300      
+      },
+      "2024-12-08T10:01:00": {
+        "temperature": 25.5,
+        "humidity": 45.0,
+        "movement": 0,        
+        "lightness": 310      
+      }
+    },
+    "device2": {
+      "2024-12-08T10:00:00": {
+        "temperature": 22.1,
+        "humidity": 40.2,
+        "movement": 0,         
+        "lightness": 400      
+      }
+    }
+  }
+}
