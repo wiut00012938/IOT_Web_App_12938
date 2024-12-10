@@ -5,6 +5,116 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Home
     link(rel="stylesheet", href="/styles.css")
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script.
+      async function generateCharts(metrics) {
+        const dailyData = {};
+
+        metrics.forEach(metric => {
+          const day = metric.timestamp.split('T')[0];
+          if (!dailyData[day]) {
+            dailyData[day] = { temperature: [], humidity: [], lightness: [], movement: 0 };
+          }
+          dailyData[day].temperature.push(metric.temperature);
+          dailyData[day].humidity.push(metric.humidity);
+          dailyData[day].lightness.push(metric.lightness);
+          if (metric.movement) dailyData[day].movement++;
+        });
+
+        const days = Object.keys(dailyData);
+        const temperatureData = days.map(day => average(dailyData[day].temperature));
+        const humidityData = days.map(day => average(dailyData[day].humidity));
+        const lightnessData = days.map(day => average(dailyData[day].lightness));
+        const movementData = days.map(day => dailyData[day].movement);
+
+        function average(arr) {
+          return arr.reduce((a, b) => a + b, 0) / arr.length || 0;
+        }
+
+        
+        new Chart(document.getElementById('temperatureChart'), {
+          type: 'line',
+          data: {
+            labels: days,
+            datasets: [{
+              label: 'Temperature (°C)',
+              data: temperatureData,
+              borderColor: 'rgb(255, 99, 132)',
+              tension: 0.1
+            }]
+          }
+        });
+
+        // Humidity Line Chart
+        new Chart(document.getElementById('humidityChart'), {
+          type: 'line',
+          data: {
+            labels: days,
+            datasets: [{
+              label: 'Humidity (%)',
+              data: humidityData,
+              borderColor: 'rgb(54, 162, 235)',
+              tension: 0.1
+            }]
+          }
+        });
+
+        
+        new Chart(document.getElementById('lightnessChart'), {
+          type: 'line',
+          data: {
+            labels: days,
+            datasets: [{
+              label: 'Lightness (lx)',
+              data: lightnessData,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }]
+          }
+        });
+
+
+        new Chart(document.getElementById('movementChart'), {
+          type: 'bar',
+          data: {
+            labels: days,
+            datasets: [{
+              label: 'Movement (times per day)',
+              data: movementData,
+              backgroundColor: 'rgb(153, 102, 255)'
+            }]
+          }
+        });
+
+    
+        new Chart(document.getElementById('overallChart'), {
+          type: 'line',
+          data: {
+            labels: days,
+            datasets: [
+              {
+                label: 'Temperature (°C)',
+                data: temperatureData,
+                borderColor: 'rgb(255, 99, 132)',
+                tension: 0.1
+              },
+              {
+                label: 'Humidity (%)',
+                data: humidityData,
+                borderColor: 'rgb(54, 162, 235)',
+                tension: 0.1
+              },
+              {
+                label: 'Lightness (lx)',
+                data: lightnessData,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+              }
+            ]
+          }
+        });
+      }
   body
     .container
       h1 Metrics for Device #{device_id}
@@ -17,9 +127,26 @@ html(lang="en")
               th Timestamp
               th Temperature (°C)
               th Humidity (%)
+              th Lightness (lx)
+              th Movement
           tbody
-            each metric in metrics
+            each metric, index in metrics
               tr
                 td= metric.timestamp
                 td= metric.temperature
                 td= metric.humidity
+                td= metric.lightness
+                td= metric.movement ? 'Yes' : 'No'
+      a(href=`/my-device?device_id=${device_id}`, class="my-device-button") My Device
+      
+      .charts
+        h2 Charts
+        canvas#temperatureChart()
+        canvas#humidityChart()
+        canvas#lightnessChart()
+        canvas#movementChart()
+        canvas#overallChart()
+      
+    script.
+      const metrics = !{JSON.stringify(metrics)};
+      generateCharts(metrics);

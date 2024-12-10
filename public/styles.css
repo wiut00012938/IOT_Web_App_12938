@@ -1,18 +1,108 @@
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0; 
+  padding: 0;
+  width: 100vw; 
+  height: 100vh; 
+  box-sizing: border-box; 
 }
 
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+body {
+  display: block; 
+  background-color: #f9f9f9; 
 }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #ddd;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.good {
+  background-color: #d4edda; 
+}
+
+.medium {
+  background-color: #fff3cd; 
+}
+
+.bad {
+  background-color: #f8d7da; 
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: flex-start; 
+  width: 100%; 
+  height: 100vh; 
+  padding: 20px; 
+  box-sizing: border-box;
+  background-color: #f9f9f9; 
+  overflow-y: auto; 
+}
+
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 20px; 
+  width: 100%; 
+  max-width: 1200px; 
+  padding: 20px 0; 
+  box-sizing: border-box;
+}
+
+
+canvas {
+  width: 100%; 
+  max-width: 700px; 
+  height: 300px; 
+  background-color: #fff; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
 
 h1 {
   text-align: center;
@@ -63,5 +153,189 @@ th {
 
 .error {
   color: red;
+  text-align: center;
+}
+
+
+
+
+.my-device-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.my-device-button:hover {
+  background-color: #45a049;
+  transition: background-color 0.3s ease;
+}
+
+.my-device-button:active {
+  background-color: #387c39;
+}
+
+h1 {
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+
+.device-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+  margin-top: 20px;
+}
+
+
+.device-settings h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Switch Styling */
+.switch {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.switch label {
+  margin-right: 10px;
+}
+
+.switch input[type="checkbox"] {
+  display: none;
+}
+
+.switch span.slider {
+  width: 34px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 34px;
+  position: relative;
+  transition: 0.4s;
+}
+
+.switch input:checked + span.slider {
+  background-color: #4CAF50;
+}
+
+.switch span.slider:before {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: white;
+  left: 4px;
+  bottom: 4px;
+  transition: 0.4s;
+}
+
+.switch input:checked + span.slider:before {
+  transform: translateX(14px);
+}
+
+/* Slider Styling */
+input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+}
+
+#freqValue {
+  display: block;
+  margin-top: 5px;
+}
+
+/* Submit Button */
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Success Message */
+.message.success {
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.device-container {
+  width: 100%;
+  max-width: 600px; 
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.device-settings label,
+.device-settings h3,
+.device-settings input,
+.device-settings button {
+  display: block;
+  width: 100%; 
+  margin-bottom: 15px; 
+  font-size: 16px;
+}
+
+.device-settings h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.device-settings input[type="range"] {
+  width: 100%;
+}
+
+
+button#submitBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button#submitBtn:hover {
+  background-color: #0056b3;
+}
+
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 4px;
   text-align: center;
 }
